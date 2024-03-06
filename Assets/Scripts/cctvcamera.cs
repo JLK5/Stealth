@@ -17,11 +17,6 @@ public class cctvcamera : MonoBehaviour
     void Update()
     {
         transform.rotation = Quaternion.Euler(new Vector3(0, Mathf.PingPong(Time.time, 9) * 10 - 45, 0));
-        checkSight();
     }
 
-    void checkSight()
-    {
-        Debug.DrawRay(cameraLens.position, cameraLens.TransformDirection(Vector3.up) * 100, Color.yellow);
-    }
 }
