@@ -70,6 +70,11 @@ public class PlayerController : MonoBehaviour
             //dodaj si³ê skoku
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+
         
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Trigger");
     }
 }

@@ -10,7 +10,7 @@ public class cctvcamera : MonoBehaviour
     void Start()
     {
         Transform cameraPosition = transform.Find("Camera");
-        cameraLens = cameraPosition.Find("Cylinder");
+        cameraLens = cameraPosition.Find("cctv");
     }
 
     // Update is called once per frame
@@ -22,6 +22,6 @@ public class cctvcamera : MonoBehaviour
 
     void checkSight()
     {
-        Debug.DrawRay(cameraLens.position, cameraLens.TransformDirection(Vector3.down) * 100, Color.yellow);
+        Debug.DrawRay(cameraLens.position, cameraLens.TransformDirection(Vector3.up) * 100, Color.yellow);
     }
 }
