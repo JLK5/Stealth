@@ -7,7 +7,9 @@ public class PlayerController : MonoBehaviour
     //silnik fizyczny dla obiektu gracza
     Rigidbody rb;
     //si³a skoku
-    public float jumpForce = 5f;
+    public Vector3 jump;
+    public bool isGrounded;
+    public float jumpForce = 1f;
 
     public float moveSpeed = 5f;
     // Start is called before the first frame update
@@ -15,6 +17,7 @@ public class PlayerController : MonoBehaviour
     {
         //przypnij rigidbody gracza do zmiennej rb
         rb = GetComponent<Rigidbody>();
+        jump = new Vector3(0.0f, 2.0f, 0.0f);
     }
 
     // Update is called once per frame
@@ -52,27 +55,20 @@ public class PlayerController : MonoBehaviour
 
         
     }
+    void OnCollisionStay()
+    {
+        isGrounded = true;
+    }
     //spróbujmy obejœæ problem z opóŸnieniem wejœcia poprzez przeniesienie go do update
     void Update()
     {
-        //sprawdz czy nacisnieto spacjê (skok)
-        //zwraca true jeœli zaczêliœmy naciskaæ spacjê w trakcie klatki animacji
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            Jump();
+            rb.AddForce(jump * jumpForce, ForceMode.Impulse);
+            isGrounded = false;
         }
-    }
-    void Jump()
-    {
-        //sprawdz czy znajduje siê na poziomie 0
-        if (transform.position.y <= Mathf.Epsilon)
-        {
-            //dodaj si³ê skoku
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        }
-
-        
-    }
+    } 
+    
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Trigger");
