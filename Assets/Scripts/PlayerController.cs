@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
 
         
     }
-    void OnCollisionStay()
+    void OnCollisionEnter()
     {
         isGrounded = true;
     }
@@ -67,10 +67,17 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(jump * jumpForce, ForceMode.Impulse);
             isGrounded = false;
         }
-    } 
-    
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger");
+       if(other.CompareTag("LevelEnd"))
+        {
+            GameObject.Find("LevelManager").GetComponent<LevelManager>().OnWin();
+        }
+       if(other.CompareTag("CameraView"))
+        {
+            GameObject.Find("LevelManager").GetComponent<LevelManager>().OnLose();
+        }
     }
 }
